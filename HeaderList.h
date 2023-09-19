@@ -17,4 +17,3 @@
 #include <BRepPrimAPI_MakeBox.hxx>
 #include <Standard_Version.hxx>
 
-#include <vtk-9.3/vtkRenderWindow.h>
