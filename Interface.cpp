@@ -1,5 +1,10 @@
 #include "Interface.h"
 
+extern CAD cad;           // assuming cad is declared globally
+extern Visualizer visualizer;
+extern Core core;
+
+
 void Interface::createContext()
 {
     // Setup the ImGui context
@@ -32,8 +37,12 @@ void Interface::imguione()
     ImGui::Begin("OpenCascade Info");
     ImGui::Text("OpenCascade version: %s", OCC_VERSION_COMPLETE);
     if (ImGui::Button("Make Box")) {
-        // TODO: Add logic to create a box using OpenCascade
-        std::cout << "Box created!" << std::endl;
+        std::cout << "Box button pressed" << std::endl;
+        // Create a box using OpenCascade
+        cad.box = cad.makeBox(10.0, 10.0, 10.0);  // example size
+        // Visualize the created box using VTK
+        visualizer.visualizeShape(cad.box);
+        
     }
     ImGui::End();
 }

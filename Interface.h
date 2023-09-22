@@ -1,5 +1,7 @@
 #pragma once
 #include "HeaderList.h"
+#include "CAD.h"
+#include "Visualizer.h"
 
 class Interface
 {

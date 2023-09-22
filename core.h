@@ -2,6 +2,8 @@
 
 #include "HeaderList.h"
 #include "Interface.h"
+#include "CAD.h"
+#include "Visualizer.h"
 
 class Core
 {
@@ -24,7 +26,6 @@ private:
 		800, 600, SDL_WINDOW_OPENGL);								// Pointer to the main SDL window.
 	
 	SDL_GLContext gl_context = SDL_GL_CreateContext(window);		// The OpenGL context associated with the window.
-	Interface interface;											// An instance of the Interface class to manage GUI.
 
 
 };

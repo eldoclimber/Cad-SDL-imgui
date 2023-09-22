@@ -1,5 +1,10 @@
 #include "core.h"
 
+
+extern CAD cad;
+extern Visualizer visualizer;
+extern Interface interface;
+
 // Prepare everything required before the main loop.
 void Core::preLoop()
 {
@@ -29,8 +34,13 @@ void Core::mainLoop()
         ImGui_ImplSDL2_NewFrame(window);
         ImGui::NewFrame();
 
+        //For Testing Purposes. Trying to get the vtk render window to appear
+        visualizer.visualizeShape(cad.box);
+
+
         // Render the GUI
         interface.imguione();
+        
 
         // End the ImGui frame and render it
         ImGui::Render();

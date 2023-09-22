@@ -6,7 +6,7 @@
 // Window and event handler
 #include <SDL.h>
 #include <GL/glew.h>
-
+#include <vtkAutoInit.h>
 
 // Dear ImGui headers
 #include "Vendors/imgui/imgui.h"
@@ -17,3 +17,9 @@
 #include <BRepPrimAPI_MakeBox.hxx>
 #include <Standard_Version.hxx>
 
+#include <vtksys/Configure.hxx>
+#include <vtksys/Status.hxx>
+#include <vtksys/SystemTools.hxx>
+#include "vtkSDL2OpenGLRenderWindow.h"
+
+#include "core.h"
