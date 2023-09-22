@@ -2,6 +2,8 @@
 
 #include "HeaderList.h"
 #include "Interface.h"
+#include "CAD.h"
+#include "Visualizer.h"
 
 class Core
 {
@@ -25,6 +27,7 @@ private:
 	
 	SDL_GLContext gl_context = SDL_GL_CreateContext(window);		// The OpenGL context associated with the window.
 	Interface interface;											// An instance of the Interface class to manage GUI.
-
+	CAD cad;														// An instance of the CAD class to manage CAD operations.		
+	Visualizer visualizer;											// An instance of the Visualizer class to manage rendering.
 
 };
