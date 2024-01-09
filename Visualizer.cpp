@@ -13,11 +13,12 @@ extern Interface interface;											// An instance of the Interface class to m
 Visualizer::Visualizer() {
     // Create default renderer and render window
     renderer = vtkSmartPointer<vtkRenderer>::New();
-    renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
+    //renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
     renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 
     renderWindow->AddRenderer(renderer);
     renderWindowInteractor->SetRenderWindow(renderWindow);
+
 }
 
 Visualizer::~Visualizer() {
@@ -32,8 +33,15 @@ void Visualizer::visualizeShape(const TopoDS_Shape& shape) {
     // For now, just a demonstration:
     renderWindow->Render();   
     renderWindowInteractor->Start();
+    renderer->AddActor(actor);
+    renderer->SetRenderWindow(renderWindow);
 
-    std::cout << "Render Started" << std::endl;
-    std::cout << "Box visualized" << std::endl;
+    //std::cout << "Render Started" << std::endl;
+    //std::cout << "Box visualized" << std::endl;
 }
 
+void Visualizer::setRenderWindow(vtkSmartPointer<vtkGenericOpenGLRenderWindow> rw) {
+    renderWindow = rw;
+    renderer->SetRenderWindow(renderWindow);
+    renderWindowInteractor->SetRenderWindow(renderWindow);
+}

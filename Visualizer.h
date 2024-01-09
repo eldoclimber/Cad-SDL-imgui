@@ -6,6 +6,8 @@
 #include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkRenderWindowInteractor.h>
 #include <TopoDS_Shape.hxx>
+#include <vtkGenericOpenGLRenderWindow.h>
+
 
 class Visualizer
 {
@@ -15,6 +17,8 @@ public:
 
     void visualizeShape(const TopoDS_Shape& shape);
     void initVisualizer();
+    void setRenderWindow(vtkSmartPointer<vtkGenericOpenGLRenderWindow> rw);
+
 private:
     vtkSmartPointer<vtkRenderer> renderer;
     vtkSmartPointer<vtkRenderWindow> renderWindow;

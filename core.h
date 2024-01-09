@@ -4,6 +4,7 @@
 #include "Interface.h"
 #include "CAD.h"
 #include "Visualizer.h"
+#include <vtkGenericOpenGLRenderWindow.h>
 
 class Core
 {
@@ -27,5 +28,6 @@ private:
 	
 	SDL_GLContext gl_context = SDL_GL_CreateContext(window);		// The OpenGL context associated with the window.
 
+	vtkSmartPointer<vtkGenericOpenGLRenderWindow> vtkRenderWindow;	// VTK Render window context
 
 };

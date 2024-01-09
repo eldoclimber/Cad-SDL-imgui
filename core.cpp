@@ -15,6 +15,9 @@ void Core::preLoop()
         handleError("Initialization failed!");
     }
     setupRenderComponents();
+    vtkRenderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+    vtkRenderWindow->SetWindowId(reinterpret_cast<void*>(SDL_GetWindowID(window)));
+    vtkRenderWindow->OpenGLInitContext();
 }
 
 // The main application loop.
@@ -29,24 +32,49 @@ void Core::mainLoop()
                 done = true;
         }
 
-        // Start the ImGui frame
+        //NEW RENDER ORDER
+
+        // Clear the screen
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear screen
+
+        vtkRenderWindow->Render(); // Render VTK content
+
+        //glDisable(GL_DEPTH_TEST); // Disable depth test for ImGui rendering
+        glEnable(GL_DEPTH_TEST);
+        // ImGui rendering
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window);
         ImGui::NewFrame();
 
-        //For Testing Purposes. Trying to get the vtk render window to appear
-        visualizer.visualizeShape(cad.box);
+        // ImGui rendering calls
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+        SDL_GL_SwapWindow(window); // Swap buffers
 
-        // Render the GUI
-        interface.imguione();
         
 
-        // End the ImGui frame and render it
-        ImGui::Render();
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        SDL_GL_SwapWindow(window);
+
+        //// Start the ImGui frame
+        //ImGui_ImplOpenGL3_NewFrame();
+        //ImGui_ImplSDL2_NewFrame(window);
+        //ImGui::NewFrame();
+
+        ////For Testing Purposes. Trying to get the vtk render window to appear
+        //visualizer.visualizeShape(cad.box);
+        //vtkRenderWindow->Render();
+
+        //// Render the GUI
+        //interface.imguione();
+        //
+
+        //// End the ImGui frame and render it
+        //ImGui::Render();
+        //glClear(GL_COLOR_BUFFER_BIT);
+        //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        //SDL_GL_SwapWindow(window);
+        
     }
 }
 
@@ -76,6 +104,7 @@ void Core::setupRenderComponents()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     interface.setupPlatform(window, gl_context);
+    visualizer.setRenderWindow(vtkRenderWindow);
 }
 
 // Initialize GLEW.
